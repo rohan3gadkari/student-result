@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Result Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    #result {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #fff;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Student Result Portal</h1>
+<div style="text-align: center;">
+  <label>Enter Roll Number: </label>
+  <input type="text" id="rollInput">
+  <button onclick="showResult()">Check Result</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+const data = [
+  {
+    "Roll Number": 124523,
+    "Student Name": "Rohan Dinesh Gadkari",
+    "Total Marks": "187/200",
+    "Result": "PASS",
+    "TOM": 50,
+    "FMM": 45,
+    "MPR": 45,
+    "EME": 47
+  },
+  {
+    "Roll Number": 124524,
+    "Student Name": "Rohit Dinesh Gadkari",
+    "Total Marks": "154/200",
+    "Result": "PASS",
+    "TOM": 40,
+    "FMM": 40,
+    "MPR": 30,
+    "EME": 44
+  },
+  {
+    "Roll Number": 124525,
+    "Student Name": "Nitish Naganath Gadkari",
+    "Total Marks": "97/200",
+    "Result": "FAIL",
+    "TOM": 12,
+    "FMM": 30,
+    "MPR": 22,
+    "EME": 33
+  },
+  {
+    "Roll Number": 1214526,
+    "Student Name": "Rohini Prakash Shinde",
+    "Total Marks": "40/200",
+    "Result": "FAIL",
+    "TOM": 10,
+    "FMM": 10,
+    "MPR": 10,
+    "EME": 10
+  }
+];
+
+function showResult() {
+  const rollInput = document.getElementById("rollInput").value.trim();
+  const resultDiv = document.getElementById("result");
+  const student = data.find(s => s["Roll Number"].toString() === rollInput);
+
+  if (student) {
+    resultDiv.innerHTML = `
+      <h3>Result for Roll No: ${student["Roll Number"]}</h3>
+      <p><strong>Name:</strong> ${student["Student Name"]}</p>
+      <p><strong>Total Marks:</strong> ${student["Total Marks"]}</p>
+      <p><strong>Result:</strong> ${student["Result"]}</p>
+      <h4>Subject-wise Marks:</h4>
+      <ul>
+        <li><strong>TOM:</strong> ${student["TOM"]}</li>
+        <li><strong>FMM:</strong> ${student["FMM"]}</li>
+        <li><strong>MPR:</strong> ${student["MPR"]}</li>
+        <li><strong>EME:</strong> ${student["EME"]}</li>
+      </ul>
+    `;
+  } else {
+    resultDiv.innerHTML = "<p style='color:red;'>Result not found for the entered Roll Number.</p>";
+  }
+}
+</script>
+
+</body>
+</html>
