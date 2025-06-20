@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Result Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label, input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 5px;
+    }
+
+    .signature {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .signature img {
+      width: 100px;
+    }
+
+    @media (max-width: 480px) {
+      .signature {
+        text-align: center;
+      }
+
+      .signature img {
+        width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Student Result Portal</h1>
+    <label for="rollInput">Enter Roll Number:</label>
+    <input type="text" id="rollInput" placeholder="Enter your roll number" />
+    <button onclick="showResult()">Check Result</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const data = [
+      {
+        "Roll Number": 124523,
+        "Student Name": "Rohan Dinesh Gadkari",
+        "Total Marks": "187/200",
+        "Result": "PASS",
+        "TOM": 50,
+        "FMM": 45,
+        "MPR": 45,
+        "EME": 47
+      },
+      {
+        "Roll Number": 124524,
+        "Student Name": "Rohit Dinesh Gadkari",
+        "Total Marks": "154/200",
+        "Result": "PASS",
+        "TOM": 40,
+        "FMM": 40,
+        "MPR": 30,
+        "EME": 44
+      },
+      {
+        "Roll Number": 124525,
+        "Student Name": "Nitish Naganath Gadkari",
+        "Total Marks": "97/200",
+        "Result": "FAIL",
+        "TOM": 12,
+        "FMM": 30,
+        "MPR": 22,
+        "EME": 33
+      },
+      {
+        "Roll Number": 1214526,
+        "Student Name": "Rohini Prakash Shinde",
+        "Total Marks": "40/200",
+        "Result": "FAIL",
+        "TOM": 10,
+        "FMM": 10,
+        "MPR": 10,
+        "EME": 10
+      }
+    ];
+
+    function showResult() {
+      const rollInput = document.getElementById("rollInput").value.trim();
+      const resultDiv = document.getElementById("result");
+      const student = data.find(s => s["Roll Number"].toString() === rollInput);
+
+      if (student) {
+        resultDiv.innerHTML = `
+          <h3>Result for Roll No: ${student["Roll Number"]}</h3>
+          <p><strong>Name:</strong> ${student["Student Name"]}</p>
+          <p><strong>Total Marks:</strong> ${student["Total Marks"]}</p>
+          <p><strong>Result:</strong> ${student["Result"]}</p>
+          <h4>Subject-wise Marks:</h4>
+          <ul>
+            <li><strong>TOM:</strong> ${student["TOM"]}</li>
+            <li><strong>FMM:</strong> ${student["FMM"]}</li>
+            <li><strong>MPR:</strong> ${student["MPR"]}</li>
+            <li><strong>EME:</strong> ${student["EME"]}</li>
+          </ul>
+          <div class="signature">
+            <img src="Rohan_Sig-removebg-preview.png.png" alt="Signature">
+            <p><strong>Group Leader</strong></p>
+          </div>
+        `;
+      } else {
+        resultDiv.innerHTML = "<p style='color:red;'>Result not found for the entered Roll Number.</p>";
+      }
+    }
+  </script>
+
+</body>
+</html>
