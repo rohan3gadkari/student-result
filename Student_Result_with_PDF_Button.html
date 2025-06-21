@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Result Portal</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    #result {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #fff;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #downloadBtn {
+      display: none;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Student Result Portal</h1>
+<div style="text-align: center;">
+  <label>Enter Roll Number: </label>
+  <input type="text" id="rollInput">
+  <button onclick="showResult()">Check Result</button>
+  <button id="downloadBtn" onclick="downloadPDF()">Download Result as PDF</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+const data = [
+  {
+    "Roll Number": 124523,
+    "Student Name": "Rohan Dinesh Gadkari",
+    "Result": "PASS",
+    "TOM": 50,
+    "FMM": 45,
+    "MPR": 45,
+    "EME": 47
+  },
+  {
+    "Roll Number": 124524,
+    "Student Name": "Rohit Dinesh Gadkari",
+    "Result": "PASS",
+    "TOM": 40,
+    "FMM": 40,
+    "MPR": 30,
+    "EME": 44
+  },
+  {
+    "Roll Number": 124525,
+    "Student Name": "Nitish Naganath Gadkari",
+    "Result": "FAIL",
+    "TOM": 12,
+    "FMM": 30,
+    "MPR": 22,
+    "EME": 33
+  },
+  {
+    "Roll Number": 1214526,
+    "Student Name": "Rohini Prakash Shinde",
+    "Result": "FAIL",
+    "TOM": 10,
+    "FMM": 10,
+    "MPR": 10,
+    "EME": 10
+  }
+];
+
+function showResult() {
+  const rollInput = document.getElementById("rollInput").value.trim();
+  const resultDiv = document.getElementById("result");
+  const student = data.find(s => s["Roll Number"].toString() === rollInput);
+  const downloadBtn = document.getElementById("downloadBtn");
+
+  if (student) {
+    const total = student.TOM + student.FMM + student.MPR + student.EME;
+    resultDiv.innerHTML = `
+      <div id="resultContent">
+        <h3>Result for Roll No: ${student["Roll Number"]}</h3>
+        <p><strong>Name:</strong> ${student["Student Name"]}</p>
+        <p><strong>Result:</strong> ${student["Result"]}</p>
+        <h4>Subject-wise Marks:</h4>
+        <ul>
+          <li><strong>TOM:</strong> Max: 50, Min: 25, Obt: ${student["TOM"]}</li>
+          <li><strong>FMM:</strong> Max: 50, Min: 25, Obt: ${student["FMM"]}</li>
+          <li><strong>MPR:</strong> Max: 50, Min: 25, Obt: ${student["MPR"]}</li>
+          <li><strong>EME:</strong> Max: 50, Min: 25, Obt: ${student["EME"]}</li>
+        </ul>
+        <p><strong>Total Marks:</strong> 200 / ${total}</p>
+        <div style="margin-top: 40px; text-align: right;">
+          <img src="Rohan_Sig-removebg-preview.png.png" alt="Signature" width="120">
+          <p style="margin-right: 10px;"><strong>Group Leader</strong></p>
+        </div>
+      </div>
+    `;
+    downloadBtn.style.display = "inline-block";
+  } else {
+    resultDiv.innerHTML = "<p style='color:red;'>Result not found for the entered Roll Number.</p>";
+    downloadBtn.style.display = "none";
+  }
+}
+
+function downloadPDF() {
+  const resultElement = document.getElementById("resultContent");
+  html2pdf().from(resultElement).save("Student_Result.pdf");
+}
+</script>
+
+</body>
+</html>
